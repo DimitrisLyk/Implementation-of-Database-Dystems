@@ -30,13 +30,13 @@ int main() {
   printf("Insert Entries\n");
   for (int id = 0; id < RECORDS_NUM; ++id) {
     record = randomRecord();
-    HP_InsertEntry(info, record);
+    HP_InsertEntry(fd2, info, record);
   }
 
   printf("RUN PrintAllEntries\n");
   int id = rand() % RECORDS_NUM;
   printf("\nSearching for: %d",id);
-  HP_GetAllEntries(info, id);
+  HP_GetAllEntries(fd2, info, id);
 
   HP_CloseFile(info, fd2);
   BF_Close();

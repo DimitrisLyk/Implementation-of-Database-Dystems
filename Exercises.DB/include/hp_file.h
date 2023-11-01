@@ -11,7 +11,7 @@ typedef struct HP_info {
 } HP_info;
 
 typedef struct HP_block_info{
-    int record_num;     //poses eggrafes exei ena block
+    int num_records;     //poses eggrafes exei ena block
 } HP_block_info;
 
 /*Η συνάρτηση HP_CreateFile χρησιμοποιείται για τη δημιουργία και
@@ -47,9 +47,9 @@ int HP_CloseFile( HP_info* header_info, int file_desc /* αναγνωριστι�
 (blockId) , ενώ σε διαφορετική περίπτωση -1.
 */
 int HP_InsertEntry(
+    int file_desc ,
     HP_info* header_info, /* επικεφαλίδα του αρχείου*/
-    Record record /* δομή που προσδιορίζει την εγγραφή */,
-    int file_desc );
+    Record record /* δομή που προσδιορίζει την εγγραφή */);
 
 /*Η συνάρτηση αυτή χρησιμοποιείται για την εκτύπωση όλων των εγγραφών
 που υπάρχουν στο αρχείο κατακερματισμού οι οποίες έχουν τιμή στο
@@ -62,6 +62,7 @@ int HP_InsertEntry(
 επιστρέφει το πλήθος των blocks που διαβάστηκαν, ενώ σε περίπτωση λάθους επιστρέφει -1.
 */
 int HP_GetAllEntries(
+    int file_desc,
     HP_info* header_info, /* επικεφαλίδα του αρχείου*/
     int id /* η τιμή id της εγγραφής στην οποία πραγματοποιείται η αναζήτηση*/);
 
