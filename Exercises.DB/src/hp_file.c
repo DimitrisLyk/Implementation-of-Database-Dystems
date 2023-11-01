@@ -36,10 +36,6 @@ int HP_CreateFile(char *fileName){
         return -1;
     }
 
-  
-
-
-  // Allocate a block for the header and initialize metadata
     e = BF_AllocateBlock(fd, head_block);
     if (e != BF_OK) {
         BF_PrintError(e);
@@ -143,14 +139,13 @@ int HP_InsertEntry(int file_desc, HP_info* hp_info, Record record){
   BF_Block_Init(&last_block);
 
 
-  // Try to get the last block
   BF_GetBlock(file_desc, hp_info->last_block_id, last_block);
   
 
   char* data = BF_Block_GetData(last_block);
   HP_block_info* block_info = (HP_block_info*)data;
 
-  // Check if there's enough space in the last block to insert the record
+  // Ελεγχω εαν υπαρχει χωρος στο τλεευταιο μπλοκ
   if (block_info->num_records * record_size + record_size <= max_records_per_block) {
       int offset = block_info->num_records * record_size;
       memcpy(data + offset, &record, record_size);
@@ -162,18 +157,18 @@ int HP_InsertEntry(int file_desc, HP_info* hp_info, Record record){
       return hp_info->last_block_id;
   }
 
-  // Unpin the last block since we didn't insert the record
+  
   BF_UnpinBlock(last_block);
   
 
-    // If we reach this point, it means the last block is full or doesn't exist
-    // Allocate a new block for the entry
+  //Διαφορετικα φτιαχνουμε νεο μπλοκ αφου ειναι γεματο το προηγουμενο
     BF_Block* new_block;
+    BF_Block_Init(&new_block);
     BF_AllocateBlock(file_desc, new_block);
  
     BF_Block_GetData(new_block);
     HP_block_info* new_block_info = (HP_block_info*)data;
-    block_info->num_records = 1;  // Initialize with 1 record
+    block_info->num_records = 1;
 
     memcpy(data, &record, record_size);
     hp_info->last_block_id = (BF_GetBlockCounter(file_desc, &blocks_num) - 1);
