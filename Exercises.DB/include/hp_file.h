@@ -6,12 +6,12 @@
 
 /* Η δομή HP_info κρατάει μεταδεδομένα που σχετίζονται με το αρχείο σωρού*/
 typedef struct HP_info {
-    int last_block_id;
-    int records_per_block;   //poses eggrafes xwraei kathe block
+    int last_block_id;       //Το id του τελευταιου μπλοκ που χρησιμοποιησαμε
+    int records_per_block;   //Ποσες εγγραφες χωραει καθε μπλοκ
 } HP_info;
 
 typedef struct HP_block_info{
-    int num_records;     //poses eggrafes exei ena block
+    int num_records;     //Ποσες εγγραφες εχει ενα μπλοκ
 } HP_block_info;
 
 /*Η συνάρτηση HP_CreateFile χρησιμοποιείται για τη δημιουργία και
@@ -48,7 +48,7 @@ int HP_CloseFile( HP_info* header_info, int file_desc /* αναγνωριστι�
 */
 int HP_InsertEntry(
     int file_desc ,
-    HP_info* header_info, /* επικεφαλίδα του αρχείου*/
+    HP_info* hp_info, /* επικεφαλίδα του αρχείου*/
     Record record /* δομή που προσδιορίζει την εγγραφή */);
 
 /*Η συνάρτηση αυτή χρησιμοποιείται για την εκτύπωση όλων των εγγραφών

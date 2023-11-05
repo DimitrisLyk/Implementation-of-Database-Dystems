@@ -33,9 +33,9 @@ int main() {
     HP_InsertEntry(fd2, info, record);
   }
 
-  printf("RUN PrintAllEntries\n");
+  //printf("RUN PrintAllEntries\n");
   int id = rand() % RECORDS_NUM;
-  printf("\nSearching for: %d",id);
+  printf("\nSearching for: %d\n",id);
   HP_GetAllEntries(fd2, info, id);
 
   HP_CloseFile(info, fd2);
